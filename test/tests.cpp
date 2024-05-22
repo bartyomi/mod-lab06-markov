@@ -1,11 +1,9 @@
-
-#include "textgen.h"
+// Copyright 2024 Burdeiniy Artem
 #include <gtest/gtest.h>
-
-using namespace std;
+#include "textgen.h"
 
 TEST(prefix_count, first) {
-    auto table = Generator().GenerateTable(2, "first second third");
+    auto table = Generator().GenerateTable(2, "fist second third");
     for (const auto& element : table) {
         EXPECT_EQ(element.first.size(), 2);
     }
@@ -25,15 +23,15 @@ TEST(prefix_suffix_pair, one_suffix) {
 
 TEST(prefix_suffix_pair, many_suffix) {
     auto table = Generator().GenerateTable(1, "first second third");
-    prefix pr1 = prefix{ "first" };
-    prefix pr2 = prefix{ "second" };
+    prefix pr1 = prefix{"first"};
+    prefix pr2 = prefix{"second"};
     EXPECT_EQ(table[pr1][0], "second");
     EXPECT_EQ(table[pr2][0], "third");
 }
 
 TEST(text_generate, with_length) {
-    string text = "lorem ipsum dolor sit amet";
-    string result = Generator().GenerateText(text, 2, 30);
+    std::string text = "lorem ipsum dolor sit amet lorem ipsum";
+    std::string result = Generator().GenerateText(text, 2, 30);
 
     EXPECT_LE(Split(result, " ").size(), 30);
 }

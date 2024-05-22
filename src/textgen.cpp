@@ -1,9 +1,11 @@
+// Copyright 2024 Burdeiniy Artem
 #include "textgen.h"
 #include <fstream>
 #include <vector>
 #include <map>
 
-std::string Generator::GenerateText(std::string text, int prefixCount, int genLength) {
+std::string Generator::GenerateText(std::string text, 
+                                        int prefixCount, int genLength) {
     std::string result;
     std::map<prefix, suffix> table = GenerateTable(prefixCount, text);
     prefix pref = table.begin()->first;
@@ -25,7 +27,8 @@ std::string Generator::GenerateText(std::string text, int prefixCount, int genLe
     return result;
 }
 
-std::map<prefix, suffix> Generator::GenerateTable(int prefixCount, std::string text) {
+std::map<prefix, suffix> Generator::GenerateTable(int prefixCount, 
+                                                    std::string text) {
     std::map<prefix, suffix> table = std::map<prefix, suffix>();
     prefix pref = prefix();
     std::vector<std::string> words = Split(text, " ");
@@ -37,8 +40,7 @@ std::map<prefix, suffix> Generator::GenerateTable(int prefixCount, std::string t
             suffix suf = suffix();
             suf.push_back(words[i]);
             table[pref] = suf;
-        }
-        else {
+        } else {
             table[pref].push_back(words[i]);
         }
         pref.pop_front();

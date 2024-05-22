@@ -1,4 +1,4 @@
-
+// Copyright 2024 Burdeiniy Artem
 #include <gtest/gtest.h>
 
 int main(int argc, char **argv) {

@@ -1,3 +1,4 @@
+// Copyright 2024 Burdeiniy Artem
 #include <iostream>
 #include <vector>
 #include <deque>
@@ -8,7 +9,7 @@ typedef std::deque<std::string> prefix;
 typedef std::vector<std::string> suffix;
 
 class Generator {
-public:
+ public:
     std::string GenerateText(std::string text, int npref, int maxgen);
     std::map<prefix, suffix> GenerateTable(int npref, std::string text);
 };
