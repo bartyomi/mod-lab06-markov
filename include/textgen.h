@@ -1,4 +1,5 @@
 // Copyright 2024 Burdeiniy Artem
+#pragma once
 #include <iostream>
 #include <vector>
 #include <deque>

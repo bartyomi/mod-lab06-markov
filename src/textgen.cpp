@@ -4,7 +4,7 @@
 #include <vector>
 #include <map>
 
-std::string Generator::GenerateText(std::string text, 
+std::string Generator::GenerateText(std::string text,
                                         int prefixCount, int genLength) {
     std::string result;
     std::map<prefix, suffix> table = GenerateTable(prefixCount, text);
@@ -27,7 +27,7 @@ std::string Generator::GenerateText(std::string text,
     return result;
 }
 
-std::map<prefix, suffix> Generator::GenerateTable(int prefixCount, 
+std::map<prefix, suffix> Generator::GenerateTable(int prefixCount,
                                                     std::string text) {
     std::map<prefix, suffix> table = std::map<prefix, suffix>();
     prefix pref = prefix();
