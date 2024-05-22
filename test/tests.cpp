@@ -1,6 +1,5 @@
 
 #include "textgen.h"
-#include "tests.h"
 
 using namespace std;
 
