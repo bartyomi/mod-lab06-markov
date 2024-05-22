@@ -3,49 +3,36 @@
 #include <vector>
 #include <map>
 
-using namespace std;
-
-string Generator::GenerateText (string text, int countPrefix, int maxLength) {
-
-    string result;
-    map<prefix, suffix> table = GenerateTable(countPrefix, text);
+std::string Generator::GenerateText(std::string text, int prefixCount, int genLength) {
+    std::string result;
+    std::map<prefix, suffix> table = GenerateTable(prefixCount, text);
     prefix pref = table.begin()->first;
-    srand(time(nullptr));
-    vector<string> words;
+    std::srand(time(nullptr));
+    std::vector<std::string> words;
     words = Split(result, " ");
-
-
-    while (words.size() + countPrefix <= maxLength) {
-
+    while (words.size() + prefixCount <= genLength) {
         if (table.find(pref) == table.end()) {
             break;
         }
-
         suffix suf = table[pref];
-        int id = rand() % suf.size();
+        int id = std::rand() % suf.size();
         result += suf[id] + " ";
-
         pref.pop_front();
         pref.push_back(suf[id]);
-
         words = Split(result, " ");
     }
 
     return result;
 }
 
-map<prefix, suffix> Generator::GenerateTable (int countPrefix, string text) {
-
-    map<prefix, suffix> table = map<prefix, suffix>();
+std::map<prefix, suffix> Generator::GenerateTable(int prefixCount, std::string text) {
+    std::map<prefix, suffix> table = std::map<prefix, suffix>();
     prefix pref = prefix();
-    vector<string> words = Split(text, " ");
-
-    for (int i = 0; i < countPrefix; i++) {
+    std::vector<std::string> words = Split(text, " ");
+    for (int i = 0; i < prefixCount; i++) {
         pref.push_back(words[i]);
     }
-
-    for (int i = countPrefix; i < words.size(); i++) {
-
+    for (int i = prefixCount; i < words.size(); i++) {
         if (table.find(pref) == table.end()) {
             suffix suf = suffix();
             suf.push_back(words[i]);
@@ -54,44 +41,40 @@ map<prefix, suffix> Generator::GenerateTable (int countPrefix, string text) {
         else {
             table[pref].push_back(words[i]);
         }
-
         pref.pop_front();
         pref.push_back(words[i]);
     }
-
     return table;
 }
 
-vector<string> Split(string text, string separator) {
+std::vector<std::string> Split(std::string text, std::string separator) {
     int startPos = 0, endPos;
-    string core;
-    vector<string> result;
+    std::string token;
+    std::vector<std::string> result;
 
-    while ((endPos = text.find(" ", startPos)) != text.length()) {
-
-        core = text.substr(startPos, endPos - startPos);
+    while ((endPos = text.find(" ", startPos)) != std::string::npos) {
+        token = text.substr(startPos, endPos - startPos);
         startPos = endPos + separator.length();
 
-        if (core != " " && core != "") result.push_back(core);
+        if (token != " " && token != "")
+            result.push_back(token);
     }
 
-    if (text.substr(startPos) != "") result.push_back(text.substr(startPos));
+    if (text.substr(startPos) != "")
+        result.push_back(text.substr(startPos));
 
     return result;
 }
 
-string ReadFile(string path) {
+std::string ReadFile(std::string path) {
+    std::string result = "";
 
-    string result = "";
-
-    ifstream file(path);
+    std::ifstream file(path);
 
     if (file.is_open()) {
-
-        string line;
-
-        while (getline(file, line)) result += line;
-
+        std::string line;
+        while (std::getline(file, line))
+            result += line;
     }
 
     file.close();
